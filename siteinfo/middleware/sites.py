@@ -7,8 +7,16 @@ from django.core.exceptions import MiddlewareNotUsed, ImproperlyConfigured
 
 from siteinfo.models import SiteAliasSettings, SiteSettings
 
-class SiteRedirectMiddleware(object):
-    def __init__(self):
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
+
+
+class SiteRedirectMiddleware(MiddlewareMixin):
+    def __init__(self, *args, **kwargs):
+        super(RequireLoginMiddleware, self).__init__(*args, **kwargs)
+
         if getattr(settings, 'IS_DEV_SERVER', False) or 'django.contrib.sites' not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed()
 
@@ -35,7 +43,7 @@ class SiteRedirectMiddleware(object):
                 request.get_full_path(),
         ))
 
-class GeoIPRedirectMiddleware(object):
+class GeoIPRedirectMiddleware(MiddlewareMixin):
     """
     GeoIP redirect middleware. If enabled, the middleware determines the 
     visitor's location by checking his REMOTE_ADDR with the GeoIP DB 

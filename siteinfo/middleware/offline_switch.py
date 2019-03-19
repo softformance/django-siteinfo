@@ -5,8 +5,13 @@ from django.http import HttpResponseRedirect, HttpResponse
 from siteinfo.models import SiteSettings
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
 
-class OfflineSwitchMiddleware(object):
+
+class OfflineSwitchMiddleware(MiddlewareMixin):
     """
     OfflineSwitchMiddleware will return a special view if SiteSettings.active
     is set to False.
@@ -15,7 +20,8 @@ class OfflineSwitchMiddleware(object):
     e.g 'siteinfo/offline_page-example.com.html'
     """
     
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super(OfflineSwitchMiddleware, self).__init__(*args, **kwargs)
         # same as in RequireLoginMiddleware
         self.login_url = getattr(settings, 'LOGIN_URL', '/accounts/login/' )
         public_urls = []

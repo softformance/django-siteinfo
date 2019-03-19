@@ -32,8 +32,13 @@ from django.conf import settings
 from django.contrib.auth.views import login
 from django.http import HttpResponseRedirect
 from siteinfo.models import SiteSettings
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
 
-class RequireLoginMiddleware(object):
+
+class RequireLoginMiddleware(MiddlewareMixin):
     """
     Require Login middleware. If enabled, each Django-powered page will
     require authentication for all urls except 
@@ -46,7 +51,9 @@ class RequireLoginMiddleware(object):
     validation on these set SERVE_STATIC_TO_PUBLIC to False.
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super(RequireLoginMiddleware, self).__init__(*args, **kwargs)
+
         self.login_url = getattr(settings, 'LOGIN_URL', '/accounts/login/' )
         public_urls = []
         
