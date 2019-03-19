@@ -1,0 +1,202 @@
+# LANGUAGE TRANSLATION FOR MODULE siteinfo.
+# Copyright (C) 2008 Divio GmbH
+# This file is distributed under the same license as the project package.
+# Maik LUSTENBEGER <maik.lustenberger@divio.ch>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: siteinfo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 11:14+0200\n"
+"PO-Revision-Date: 2009-11-16 11:13\n"
+"Last-Translator: Bastian Kauerhoff <bastian.kauerhoff@kieser-training.com>\n"
+"Language-Team: Divio <developers@divio.ch>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: SWITZERLAND\n"
+"X-Translated-Using: django-rosetta 0.4.5.svn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: models.py:26
+msgid "login required"
+msgstr "Anmeldung erforderlich"
+
+#: models.py:27
+msgid "staff login required"
+msgstr "Administrator-Anmeldung erforderlich"
+
+#: models.py:35
+msgid "site description"
+msgstr "Site Beschreibung"
+
+#: models.py:37 models.py:47
+msgid "Keep between 150 and 1000 characters long."
+msgstr "Zwischen 150 und 1000 Zeichen lang halten."
+
+#: models.py:38 models.py:43 models.py:48
+msgid "Important for search engine indexing."
+msgstr "Wichtig für Suchmaschinenindexierung."
+
+#: models.py:40
+msgid "site keywords"
+msgstr "Site Keywords"
+
+#: models.py:42
+msgid "Comma separated."
+msgstr "Kommasepariert."
+
+#: models.py:45
+msgid "site topic"
+msgstr "Site Thema"
+
+#: models.py:50
+msgid "company"
+msgstr "Firma"
+
+#: models.py:51
+msgid "first name"
+msgstr "Vorname"
+
+#: models.py:52
+msgid "last name"
+msgstr "Nachname"
+
+#: models.py:53
+msgid "address"
+msgstr "Adresse"
+
+#: models.py:54
+msgid "ZIP code"
+msgstr "PLZ"
+
+#: models.py:55
+msgid "city"
+msgstr "Betrieb"
+
+#: models.py:56
+msgid "country"
+msgstr "Land"
+
+#: models.py:57
+msgid "email"
+msgstr "Email"
+
+#: models.py:58
+msgid "phone"
+msgstr "Telefon"
+
+#: models.py:59
+msgid "mobile phone"
+msgstr "Mobil"
+
+#: models.py:60
+msgid "fax"
+msgstr "Fax"
+
+#: models.py:61
+msgid "GTC"
+msgstr "AGB"
+
+#: models.py:61
+msgid "Provide your \"General Terms and Conditions\" document for download."
+msgstr "Ihr AGB Dokument kann hier angegeben werden (Download)."
+
+#: models.py:62
+msgid "imprint"
+msgstr "Impressum"
+
+#: models.py:62
+msgid "This imprint may be displayed at the bottom of your webpages."
+msgstr "Dieses Impressum kann unten auf Ihren Webpages angezeigt werden."
+
+#: models.py:63
+msgid "favicon"
+msgstr "Favicon"
+
+#: models.py:63
+msgid ""
+"Provide an image (Windows icon image, 16 x 16 pixels) which is used in "
+"browser bookmarks and such."
+msgstr ""
+"Bilddatei (Windows icon image, 16 x 16 pixels) angeben welche bei der "
+"Anzeige der Browserbookmarks benutzt wird."
+
+#: models.py:64
+msgid "require login"
+msgstr "anmeldung erforderlich"
+
+#: models.py:64
+msgid "Choose if a valid login is needed to view this site"
+msgstr ""
+"Wählen Sie ob eine erfolgreiche Anmeldung benötigt wird um diese Seite zu "
+"sehen"
+
+#: models.py:65
+msgid "GeoIP redirect"
+msgstr ""
+
+#: models.py:65
+msgid ""
+"If GeoIP redirection is enabled for your deployment, visitors of this site "
+"are being redirected to the configured country sites."
+msgstr ""
+
+#: models.py:66
+msgid "inactive image"
+msgstr ""
+
+#: models.py:66
+msgid "Provide an image that will be displayed when the site is inactive"
+msgstr ""
+
+#: models.py:67
+msgid "inactive text"
+msgstr ""
+
+#: models.py:67
+msgid "This text will be displayed when the site is set to inactive"
+msgstr ""
+
+#: models.py:72 models.py:73
+msgid "site settings"
+msgstr "Site Einstellungen"
+
+#: models.py:76
+#, python-format
+msgid "for site %s"
+msgstr "für Site %s"
+
+#: models.py:107
+msgid "Without www."
+msgstr "Ohne www."
+
+#: models.py:109
+msgid "Google Analytics Web Property-ID for this site."
+msgstr "Google Analytics Web Property-ID für diese Site."
+
+#: models.py:113 models.py:114
+msgid "site alias settings"
+msgstr "Site Alias Einstellungen"
+
+#: templates/registration/login.html:38
+msgid "Log in"
+msgstr "Login"
+
+#~ msgid ""
+#~ "Used to generate a meta tag with site information. Important for indexing "
+#~ "search engines."
+#~ msgstr ""
+#~ "Wird benutzt um Metatags mit Site Informationen zu generieren. Wichtig "
+#~ "für die Indexierung durch Suchmaschinen."
+
+#~ msgid "imprint printer"
+#~ msgstr "Impressum Druck"
+
+#~ msgid ""
+#~ "This imprint may be displayed at the bottom of a webpage being printed."
+#~ msgstr ""
+#~ "Dieses Impressum kann unten auf Ihrer ausgedruckten Webpages angezeigt "
+#~ "werden."

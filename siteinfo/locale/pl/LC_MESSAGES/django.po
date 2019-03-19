@@ -1,0 +1,152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-16 17:34+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:22
+msgid "login required"
+msgstr ""
+
+#: models.py:23
+msgid "staff login required"
+msgstr ""
+
+#: models.py:28
+msgid "site description"
+msgstr ""
+
+#: models.py:30 models.py:40
+msgid "Keep between 150 and 1000 characters long."
+msgstr ""
+
+#: models.py:31 models.py:36 models.py:41
+msgid "Important for search engine indexing."
+msgstr ""
+
+#: models.py:33
+msgid "site keywords"
+msgstr ""
+
+#: models.py:35
+msgid "Comma separated."
+msgstr ""
+
+#: models.py:38
+msgid "site topic"
+msgstr ""
+
+#: models.py:43
+msgid "company"
+msgstr ""
+
+#: models.py:44
+msgid "first name"
+msgstr ""
+
+#: models.py:45
+msgid "last name"
+msgstr ""
+
+#: models.py:46
+msgid "address"
+msgstr ""
+
+#: models.py:47
+msgid "ZIP code"
+msgstr ""
+
+#: models.py:48
+msgid "city"
+msgstr ""
+
+#: models.py:49
+msgid "country"
+msgstr ""
+
+#: models.py:50
+msgid "email"
+msgstr ""
+
+#: models.py:51
+msgid "phone"
+msgstr ""
+
+#: models.py:52
+msgid "mobile phone"
+msgstr ""
+
+#: models.py:53
+msgid "fax"
+msgstr ""
+
+#: models.py:54
+msgid "GTC"
+msgstr ""
+
+#: models.py:54
+msgid "Provide your \"General Terms and Conditions\" document for download."
+msgstr ""
+
+#: models.py:55
+msgid "imprint"
+msgstr ""
+
+#: models.py:55
+msgid "This imprint may be displayed at the bottom of your webpages."
+msgstr ""
+
+#: models.py:56
+msgid "favicon"
+msgstr ""
+
+#: models.py:56
+msgid ""
+"Provide an image (Windows icon image, 16 x 16 pixels) which is used in "
+"browser bookmarks and such."
+msgstr ""
+
+#: models.py:57
+msgid "require login"
+msgstr ""
+
+#: models.py:57
+msgid "Choose if a valid login is needed to view this site"
+msgstr ""
+
+#: models.py:61 models.py:62
+msgid "site settings"
+msgstr ""
+
+#: models.py:65
+#, python-format
+msgid "for site %s"
+msgstr ""
+
+#: models.py:83
+msgid "Without www."
+msgstr ""
+
+#: models.py:85
+msgid "Google Analytics Web Property-ID for this site."
+msgstr ""
+
+#: models.py:89 models.py:90
+msgid "site alias settings"
+msgstr ""
+
+#: templates/registration/login.html:38
+msgid "Log in"
+msgstr ""
