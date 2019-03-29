@@ -1,9 +1,9 @@
 import datetime
 
-from django.contrib.sites.models import Site
 from django.conf import settings
+from django.contrib.sites.models import Site
 
-from siteinfo.models import SiteSettings, SiteAliasSettings
+from siteinfo.models import SiteAliasSettings, SiteSettings
 from siteinfo.util import MetaTag
 
 
@@ -44,12 +44,12 @@ def siteinfo(request):
         if not description:
             description = site_settings.description
         if not keywords:
-            keywords = site_settings.keywords     
+            keywords = site_settings.keywords
         if description:
             meta_tags.append(MetaTag(name='description', content=description))
         if keywords:
             meta_tags.append(MetaTag(name='keywords', content=keywords))
-    
+
         # Google Conf
         try:
             sitealias_settings_qs = site.sitealias_settings.filter(domain_alias__iendswith=request.get_host().lower())

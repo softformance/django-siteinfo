@@ -1,12 +1,15 @@
 from __future__ import unicode_literals
+
 import datetime
 import warnings
-from django.db import models
+
 from django.contrib.sites.models import Site
+from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 from filer.fields.file import FilerFileField
+
 
 # Create your models here.
 class SiteSettingsManager(models.Manager):
@@ -26,10 +29,12 @@ class SiteSettingsManager(models.Manager):
             except IndexError:
                 return None
 
+
 REQUIRE_LOGIN_CHOICES = (
     ('yes', _('login required')),
     ('staff', _('staff login required')),
 )
+
 
 @python_2_unicode_compatible
 class SiteSettings(models.Model):
@@ -39,20 +44,20 @@ class SiteSettings(models.Model):
     active_end = models.DateTimeField(null=True, blank=True)
 
     description = models.TextField(_('site description'),
-        help_text=u'%s %s' % (
-            _('Keep between 150 and 1000 characters long.'),
-            _('Important for search engine indexing.'),
-        ), blank=True)
+                                   help_text=u'%s %s' % (
+                                       _('Keep between 150 and 1000 characters long.'),
+                                       _('Important for search engine indexing.'),
+                                   ), blank=True)
     keywords = models.TextField(_('site keywords'),
-        help_text=u'%s %s' % (
-            _('Comma separated.'),
-            _('Important for search engine indexing.'),
-        ), blank=True)
+                                help_text=u'%s %s' % (
+                                    _('Comma separated.'),
+                                    _('Important for search engine indexing.'),
+                                ), blank=True)
     site_topic = models.TextField(_('site topic'),
-        help_text=u'%s %s' % (
-            _('Keep between 150 and 1000 characters long.'),
-            _('Important for search engine indexing.'),
-        ), blank=True)
+                                  help_text=u'%s %s' % (
+                                      _('Keep between 150 and 1000 characters long.'),
+                                      _('Important for search engine indexing.'),
+                                  ), blank=True)
     company = models.CharField(_('company'), max_length=100, blank=True)
     first_name = models.CharField(_('first name'), max_length=100, blank=True)
     last_name = models.CharField(_('last name'), max_length=100, blank=True)
@@ -64,13 +69,28 @@ class SiteSettings(models.Model):
     phone = models.CharField(_('phone'), max_length=17, blank=True)
     phone_mobile = models.CharField(_('mobile phone'), max_length=17, blank=True)
     fax = models.CharField(_('fax'), max_length=17, blank=True)
-    gtc_file = FilerFileField(verbose_name=_('GTC'), help_text=_('Provide your "General Terms and Conditions" document for download.'), blank=True, null=True)
-    imprint = models.TextField(_('imprint'), help_text=_('This imprint may be displayed at the bottom of your webpages.'), blank=True)
-    favicon = models.FileField(_('favicon'), help_text=_('Provide an image (Windows icon image, 16 x 16 pixels) which is used in browser bookmarks and such.'), upload_to="uploads", blank=True)
-    require_login = models.CharField(_('require login'), help_text=_('Choose if a valid login is needed to view this site'), choices=REQUIRE_LOGIN_CHOICES, max_length=10, blank=True)
-    geoip_redirect = models.BooleanField(_('GeoIP redirect'), default=False, help_text=_('If GeoIP redirection is enabled for your deployment, visitors of this site are being redirected to the configured country sites.'))
-    inactive_image = models.ImageField(_('inactive image'), help_text=_('Provide an image that will be displayed when the site is inactive'), upload_to="uploads", blank=True)
-    inactive_text = models.TextField(_('inactive text'), help_text=_('This text will be displayed when the site is set to inactive'), blank=True)
+    gtc_file = FilerFileField(verbose_name=_('GTC'),
+                              help_text=_('Provide your "General Terms and Conditions" document for download.'),
+                              blank=True, null=True)
+    imprint = models.TextField(_('imprint'),
+                               help_text=_('This imprint may be displayed at the bottom of your webpages.'), blank=True)
+    favicon = models.FileField(_('favicon'), help_text=_(
+        'Provide an image (Windows icon image, 16 x 16 pixels) which is used in browser bookmarks and such.'),
+                               upload_to="uploads", blank=True)
+    require_login = models.CharField(_('require login'),
+                                     help_text=_('Choose if a valid login is needed to view this site'),
+                                     choices=REQUIRE_LOGIN_CHOICES, max_length=10, blank=True)
+    geoip_redirect = models.BooleanField(
+        _('GeoIP redirect'),
+        default=False,
+        help_text=_('If GeoIP redirection is enabled for your deployment, '
+                    'visitors of this site are being redirected to the configured country sites.'))
+    inactive_image = models.ImageField(_('inactive image'),
+                                       help_text=_('Provide an image that will be displayed when the site is inactive'),
+                                       upload_to="uploads", blank=True)
+    inactive_text = models.TextField(_('inactive text'),
+                                     help_text=_('This text will be displayed when the site is set to inactive'),
+                                     blank=True)
 
     objects = SiteSettingsManager()
 
@@ -91,9 +111,9 @@ class SiteSettings(models.Model):
 
     def is_active_on_date(self, on_date):
         if self.active:
-            if self.active_start and self.active_start>on_date:
+            if self.active_start and self.active_start > on_date:
                 return False
-            if self.active_end and self.active_end<on_date:
+            if self.active_end and self.active_end < on_date:
                 return False
             return True
         else:
@@ -116,7 +136,7 @@ class SiteSettings(models.Model):
 
     @property
     def email_domain_part(self):
-        if not self.email and not '@' in self.email:
+        if not self.email and '@' not in self.email:
             return ''
         return self.email.split('@')[1]
 
@@ -125,7 +145,8 @@ class SiteSettings(models.Model):
         """
         for backward compatibility.
         """
-        warnings.warn("django-siteinfo: the sitesettings.gtc property is depreciated. please use sitesettings.gtc_file", DeprecationWarning)
+        warnings.warn("django-siteinfo: the sitesettings.gtc property is depreciated. please use sitesettings.gtc_file",
+                      DeprecationWarning)
         return getattr(self.gtc_file, 'file', None)
 
 
@@ -134,7 +155,8 @@ class SiteAliasSettings(models.Model):
     site = models.ForeignKey(Site, related_name='sitealias_settings')
     domain_alias = models.CharField(max_length=100, unique=True, help_text=_('Without www.'))
     google_maps_api_key = models.CharField(max_length=255, blank=True)
-    google_analytics_id = models.CharField(max_length=20, help_text=_('Google Analytics Web Property-ID for this site.'), blank=True)
+    google_analytics_id = models.CharField(max_length=20,
+                                           help_text=_('Google Analytics Web Property-ID for this site.'), blank=True)
     google_webmasters_verifytag = models.CharField(max_length=100, blank=True)
 
     class Meta:

@@ -28,10 +28,13 @@
 ###
 
 import re
+
 from django.conf import settings
 from django.contrib.auth.views import login
 from django.http import HttpResponseRedirect
+
 from siteinfo.models import SiteSettings
+
 try:
     from django.utils.deprecation import MiddlewareMixin
 except ImportError:
@@ -54,20 +57,20 @@ class RequireLoginMiddleware(MiddlewareMixin):
     def __init__(self, *args, **kwargs):
         super(RequireLoginMiddleware, self).__init__(*args, **kwargs)
 
-        self.login_url = getattr(settings, 'LOGIN_URL', '/accounts/login/' )
+        self.login_url = getattr(settings, 'LOGIN_URL', '/accounts/login/')
         public_urls = []
-        
-        if hasattr(settings,'PUBLIC_URLS'):
+
+        if hasattr(settings, 'PUBLIC_URLS'):
             public_urls = [re.compile(url) for url in settings.PUBLIC_URLS]
         public_urls += [(re.compile("^%s$" % self.login_url[1:]))]
         # Todo: problem with root_urlconf.urls.patterns: 
         # AttributeError: 'module' object has no attribute 'urlpatterns' (or 'urls')
         if False and getattr(settings, 'SERVE_STATIC_TO_PUBLIC', True):
             root_urlconf = __import__(settings.ROOT_URLCONF)
-            public_urls.extend([re.compile(url.regex) 
-                for url in root_urlconf.urls.urlpatterns 
-                if url.__dict__.get('_callback_str') == 'django.views.static.serve' 
-            ])
+            public_urls.extend([re.compile(url.regex)
+                                for url in root_urlconf.urls.urlpatterns
+                                if url.__dict__.get('_callback_str') == 'django.views.static.serve'
+                                ])
         self.public_urls = tuple(public_urls)
 
     def process_request(self, request):
@@ -78,7 +81,8 @@ class RequireLoginMiddleware(MiddlewareMixin):
         page set by LOGIN_URL depending on the DB setting require_login of
         SiteSettings model.
         """
-        if getattr(settings, 'IS_DEV_SERVER', False) or request.META.get('REMOTE_ADDR', '*') in getattr(settings, 'INTERNAL_IPS', []):
+        if getattr(settings, 'IS_DEV_SERVER', False) or \
+                request.META.get('REMOTE_ADDR', '*') in getattr(settings, 'INTERNAL_IPS', []):
             return None
         try:
             current = SiteSettings.objects.get_current()

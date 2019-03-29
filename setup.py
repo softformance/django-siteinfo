@@ -5,8 +5,8 @@ import siteinfo
 setup(
     author="Maik Lustenberger",
     name='django-siteinfo',
-    license = 'BSD',
-    url = 'http://github.com/divio/django-siteinfo',
+    license='BSD',
+    url='http://github.com/divio/django-siteinfo',
     version=siteinfo.__version__,
     description='django site meta info app',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
@@ -29,5 +29,5 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=True,
-    zip_safe = False
+    zip_safe=False
 )

@@ -1,5 +1,6 @@
-from django.utils.safestring import mark_safe
 from django.template.defaultfilters import force_escape
+from django.utils.safestring import mark_safe
+
 
 class MetaTag:
     """Simple class to output XHTML conform <meta> tags."""
@@ -9,7 +10,7 @@ class MetaTag:
         self.http_equiv = http_equiv
         self.scheme = scheme
         self.lang = lang and lang.lower()[:5]
-        
+
     def __unicode__(self, request=None):
         attrs = u''
         if self.name:
