@@ -1,7 +1,6 @@
 import django
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
-from django.template.context import RequestContext
+from django.shortcuts import render_to_response
 
 from siteinfo.models import SiteSettings
 
@@ -19,6 +18,8 @@ def test_offline_page(request):
                'image': current.inactive_image,
                'domain': current.site.domain}
     if django.VERSION < (1, 10):
+        from django.template.context import RequestContext
         return render_to_response(templates, context, context_instance=RequestContext(request))
     else:
+        from django.shortcuts import render
         return render(request, templates, context)

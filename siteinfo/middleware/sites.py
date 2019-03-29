@@ -15,7 +15,7 @@ except ImportError:
 
 class SiteRedirectMiddleware(MiddlewareMixin):
     def __init__(self, *args, **kwargs):
-        super(RequireLoginMiddleware, self).__init__(*args, **kwargs)
+        super(SiteRedirectMiddleware, self).__init__(*args, **kwargs)
 
         if getattr(settings, 'IS_DEV_SERVER', False) or 'django.contrib.sites' not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed()
@@ -38,10 +38,11 @@ class SiteRedirectMiddleware(MiddlewareMixin):
         except:
             return None
         return HttpResponsePermanentRedirect('%s://%s%s' % (
-                request.is_secure() and 'https' or 'http',
-                redirect_to,
-                request.get_full_path(),
+            request.is_secure() and 'https' or 'http',
+            redirect_to,
+            request.get_full_path(),
         ))
+
 
 class GeoIPRedirectMiddleware(MiddlewareMixin):
     """
@@ -55,8 +56,10 @@ class GeoIPRedirectMiddleware(MiddlewareMixin):
     site's domain. 
     Author: Maik LUSTENBERGER, Divio GmbH, 2009
     """
-    
-    def __init__(self):
+
+    def __init__(self, *args, **kwargs):
+        super(GeoIPRedirectMiddleware, self).__init__(*args, **kwargs)
+
         if getattr(settings, 'IS_DEV_SERVER', False) or 'django.contrib.sites' not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed()
         try:
@@ -74,11 +77,11 @@ class GeoIPRedirectMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         assert hasattr(request, 'session'), \
-                    "The 'GeoIPRedirectMiddleware' requires the app" \
-                    " 'django.contrib.sessions' to be in INSTALLED_APPS." \
-                    " Also make sure that 'GeoIPRedirectMiddleware' comes" \
-                    " after 'django.contrib.sessions.middleware.SessionMiddleware'" \
-                    " in the setting 'MIDDLEWARE_CLASSES'."
+            "The 'GeoIPRedirectMiddleware' requires the app" \
+            " 'django.contrib.sessions' to be in INSTALLED_APPS." \
+            " Also make sure that 'GeoIPRedirectMiddleware' comes" \
+            " after 'django.contrib.sessions.middleware.SessionMiddleware'" \
+            " in the setting 'MIDDLEWARE_CLASSES'."
         site_settings = SiteSettings.objects.get_current()
         if not site_settings.geoip_redirect:
             return None
@@ -131,5 +134,9 @@ class GeoIPRedirectMiddleware(MiddlewareMixin):
             if getattr(settings, 'SITE_GEOIP_REDIRECT_ONCE', True):
                 # Set a cookie for the lifetime of a (new) session, to let subsequent requests know of the redirect.
                 # Also, subsequent requests will write this cookie information to the session for accurate lifetime.
-                response.set_cookie('site_no_redirect', '1', max_age=(not settings.SESSION_EXPIRE_AT_BROWSER_CLOSE or None) and settings.SESSION_COOKIE_AGE)
+                response.set_cookie(
+                    'site_no_redirect',
+                    '1',
+                    max_age=(not settings.SESSION_EXPIRE_AT_BROWSER_CLOSE or None) and settings.SESSION_COOKIE_AGE
+                )
             return response
