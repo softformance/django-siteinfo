@@ -11,14 +11,17 @@ class SiteSettingsInlineAdmin(StackedInline):
     model = SiteSettings
     max_num = 1
 
+
 class SiteAliasSettingsInlineAdmin(TabularInline):
     model = SiteAliasSettings
+
 
 class ExtendedSiteAdmin(SiteAdmin):
     inlines = [
         SiteSettingsInlineAdmin,
         SiteAliasSettingsInlineAdmin,
     ]
+
 
 try:
     admin.site.unregister(Site)
