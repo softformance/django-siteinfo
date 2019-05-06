@@ -11,4 +11,4 @@ def render_email(email):
     le, ri = (email + "#").split('@')
     bits = reversed((ri + le).split("."))
     html = """<span><script type="text/javascript">nospam(%s);</script></span>"""
-    return mark_safe(html % ', '.join(map(lambda b: "'%s'" % b, bits)))
+    return mark_safe(html % ', '.join(["'%s'" % b for b in bits]))

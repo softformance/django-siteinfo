@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+
 
 import datetime
 import warnings
@@ -44,17 +44,17 @@ class SiteSettings(models.Model):
     active_end = models.DateTimeField(null=True, blank=True)
 
     description = models.TextField(_('site description'),
-                                   help_text=u'%s %s' % (
+                                   help_text='%s %s' % (
                                        _('Keep between 150 and 1000 characters long.'),
                                        _('Important for search engine indexing.'),
                                    ), blank=True)
     keywords = models.TextField(_('site keywords'),
-                                help_text=u'%s %s' % (
+                                help_text='%s %s' % (
                                     _('Comma separated.'),
                                     _('Important for search engine indexing.'),
                                 ), blank=True)
     site_topic = models.TextField(_('site topic'),
-                                  help_text=u'%s %s' % (
+                                  help_text='%s %s' % (
                                       _('Keep between 150 and 1000 characters long.'),
                                       _('Important for search engine indexing.'),
                                   ), blank=True)
@@ -99,7 +99,7 @@ class SiteSettings(models.Model):
         verbose_name_plural = _('site settings')
 
     def __str__(self):
-        return _(u'for site %s') % unicode(self.site)
+        return _('for site %s') % str(self.site)
 
     def get_full_address(self, separator="<br />"):
         address = "%s%s%s %s" % (self.address, separator, self.zip_code or "", self.city)
@@ -122,11 +122,11 @@ class SiteSettings(models.Model):
     @property
     def author(self):
         if self.company and self.last_name and self.first_name:
-            return u'%s, %s %s' % (self.company, self.first_name, self.last_name)
+            return '%s, %s %s' % (self.company, self.first_name, self.last_name)
         elif self.company and self.last_name and not self.first_name:
-            return u'%s, %s' % (self.company, self.last_name)
+            return '%s, %s' % (self.company, self.last_name)
         else:
-            return u'%s%s' % (self.last_name and self.last_name + ', ', self.first_name)
+            return '%s%s' % (self.last_name and self.last_name + ', ', self.first_name)
 
     @property
     def email_local_part(self):
@@ -164,4 +164,4 @@ class SiteAliasSettings(models.Model):
         verbose_name_plural = _('site alias settings')
 
     def __str__(self):
-        return u'Site alias %s' % self.domain_alias
+        return 'Site alias %s' % self.domain_alias

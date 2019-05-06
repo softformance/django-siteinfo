@@ -11,13 +11,13 @@ class MetaTag:
         self.scheme = scheme
         self.lang = lang and lang.lower()[:5]
 
-    def __unicode__(self, request=None):
-        attrs = u''
+    def __str__(self, request=None):
+        attrs = ''
         if self.name:
-            attrs += u'name="%s" ' % force_escape(self.name)
-        attrs += u'content="%s" ' % force_escape(self.content)
+            attrs += 'name="%s" ' % force_escape(self.name)
+        attrs += 'content="%s" ' % force_escape(self.content)
         if self.http_equiv:
-            attrs += u'http-equiv="%s" ' % force_escape(self.http_equiv)
+            attrs += 'http-equiv="%s" ' % force_escape(self.http_equiv)
         if self.scheme:
-            attrs += u'scheme="%s" ' % force_escape(self.scheme)
-        return mark_safe(u'<meta %s/>' % attrs)
+            attrs += 'scheme="%s" ' % force_escape(self.scheme)
+        return mark_safe('<meta %s/>' % attrs)
