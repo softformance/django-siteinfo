@@ -1,11 +1,8 @@
-
-
 import datetime
 import warnings
 
 from django.contrib.sites.models import Site
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from filer.fields.file import FilerFileField
@@ -36,9 +33,8 @@ REQUIRE_LOGIN_CHOICES = (
 )
 
 
-@python_2_unicode_compatible
 class SiteSettings(models.Model):
-    site = models.ForeignKey(Site, related_name='site_settings', unique=True)
+    site = models.OneToOneField(Site, related_name='site_settings')
     active = models.BooleanField(default=True)
     active_start = models.DateTimeField(null=True, blank=True)
     active_end = models.DateTimeField(null=True, blank=True)
@@ -150,7 +146,6 @@ class SiteSettings(models.Model):
         return getattr(self.gtc_file, 'file', None)
 
 
-@python_2_unicode_compatible
 class SiteAliasSettings(models.Model):
     site = models.ForeignKey(Site, related_name='sitealias_settings')
     domain_alias = models.CharField(max_length=100, unique=True, help_text=_('Without www.'))
