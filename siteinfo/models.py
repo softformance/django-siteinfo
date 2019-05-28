@@ -71,7 +71,7 @@ class SiteSettings(models.Model):
     fax = models.CharField(_('fax'), max_length=17, blank=True)
     gtc_file = FilerFileField(verbose_name=_('GTC'),
                               help_text=_('Provide your "General Terms and Conditions" document for download.'),
-                              blank=True, null=True)
+                              blank=True, null=True, on_delete=models.SET_NULL)
     imprint = models.TextField(_('imprint'),
                                help_text=_('This imprint may be displayed at the bottom of your webpages.'), blank=True)
     favicon = models.FileField(_('favicon'), help_text=_(
