@@ -38,7 +38,7 @@ REQUIRE_LOGIN_CHOICES = (
 
 @python_2_unicode_compatible
 class SiteSettings(models.Model):
-    site = models.ForeignKey(Site, related_name='site_settings', unique=True)
+    site = models.ForeignKey(Site, related_name='site_settings', unique=True, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     active_start = models.DateTimeField(null=True, blank=True)
     active_end = models.DateTimeField(null=True, blank=True)
@@ -152,7 +152,7 @@ class SiteSettings(models.Model):
 
 @python_2_unicode_compatible
 class SiteAliasSettings(models.Model):
-    site = models.ForeignKey(Site, related_name='sitealias_settings')
+    site = models.ForeignKey(Site, related_name='sitealias_settings', on_delete=models.CASCADE)
     domain_alias = models.CharField(max_length=100, unique=True, help_text=_('Without www.'))
     google_maps_api_key = models.CharField(max_length=255, blank=True)
     google_analytics_id = models.CharField(max_length=20,
