@@ -33,6 +33,7 @@ from django.conf import settings
 from django.contrib.auth.views import login
 from django.http import HttpResponseRedirect
 
+from siteinfo.compatibility import is_anonymous
 from siteinfo.models import SiteSettings
 
 try:
@@ -94,7 +95,7 @@ class RequireLoginMiddleware(MiddlewareMixin):
                 for url in self.public_urls:
                     if url.match(request.path[1:]):
                         return None
-                if request.user.is_anonymous() or require_login == 'staff' and not request.user.is_staff:
+                if is_anonymous(request.user) or require_login == 'staff' and not request.user.is_staff:
                     if request.POST:
                         return login(request)
                     else:
