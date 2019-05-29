@@ -30,7 +30,7 @@
 import re
 
 from django.conf import settings
-from django.contrib.auth.views import login
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponseRedirect
 
 from siteinfo.compatibility import is_anonymous
@@ -97,7 +97,7 @@ class RequireLoginMiddleware(MiddlewareMixin):
                         return None
                 if is_anonymous(request.user) or require_login == 'staff' and not request.user.is_staff:
                     if request.POST:
-                        return login(request)
+                        return LoginView.as_view()(request)
                     else:
                         return HttpResponseRedirect("%s?next=%s" % (self.login_url, request.path))
         except AttributeError:
