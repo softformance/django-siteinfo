@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
                 ('geoip_redirect', models.BooleanField(default=False, help_text='If GeoIP redirection is enabled for your deployment, visitors of this site are being redirected to the configured country sites.', verbose_name='GeoIP redirect')),
                 ('inactive_image', models.ImageField(help_text='Provide an image that will be displayed when the site is inactive', upload_to=b'uploads', verbose_name='inactive image', blank=True)),
                 ('inactive_text', models.TextField(help_text='This text will be displayed when the site is set to inactive', verbose_name='inactive text', blank=True)),
-                ('gtc_file', filer.fields.file.FilerFileField(blank=True, to='filer.File', help_text='Provide your "General Terms and Conditions" document for download.', null=True, verbose_name='GTC')),
+                ('gtc_file', filer.fields.file.FilerFileField(blank=True, to='filer.File', help_text='Provide your "General Terms and Conditions" document for download.', null=True, verbose_name='GTC', on_delete=models.SET_NULL)),
                 ('site', models.ForeignKey(related_name='site_settings', to='sites.Site', unique=True, on_delete=models.CASCADE)),
             ],
             options={
