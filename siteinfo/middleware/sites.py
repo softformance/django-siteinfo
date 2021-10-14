@@ -15,7 +15,7 @@ except ImportError:
 
 class SiteRedirectMiddleware(MiddlewareMixin):
     def __init__(self, *args, **kwargs):
-        super(SiteRedirectMiddleware, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if getattr(settings, 'IS_DEV_SERVER', False) or 'django.contrib.sites' not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed()
@@ -37,7 +37,7 @@ class SiteRedirectMiddleware(MiddlewareMixin):
                     redirect_to = site.domain
         except:
             return None
-        return HttpResponsePermanentRedirect('%s://%s%s' % (
+        return HttpResponsePermanentRedirect('{}://{}{}'.format(
             request.is_secure() and 'https' or 'http',
             redirect_to,
             request.get_full_path(),
@@ -58,7 +58,7 @@ class GeoIPRedirectMiddleware(MiddlewareMixin):
     """
 
     def __init__(self, *args, **kwargs):
-        super(GeoIPRedirectMiddleware, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if getattr(settings, 'IS_DEV_SERVER', False) or 'django.contrib.sites' not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed()
@@ -126,7 +126,7 @@ class GeoIPRedirectMiddleware(MiddlewareMixin):
                 path = request.get_full_path()
             else:
                 path = ''
-            response = HttpResponseRedirect('%s://%s%s' % (
+            response = HttpResponseRedirect('{}://{}{}'.format(
                 request.is_secure() and 'https' or 'http',
                 site.domain,
                 path,

@@ -56,7 +56,7 @@ class RequireLoginMiddleware(MiddlewareMixin):
     """
 
     def __init__(self, *args, **kwargs):
-        super(RequireLoginMiddleware, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.login_url = getattr(settings, 'LOGIN_URL', '/accounts/login/')
         public_urls = []
@@ -99,6 +99,6 @@ class RequireLoginMiddleware(MiddlewareMixin):
                     if request.POST:
                         return LoginView.as_view()(request)
                     else:
-                        return HttpResponseRedirect("%s?next=%s" % (self.login_url, request.path))
+                        return HttpResponseRedirect("{}?next={}".format(self.login_url, request.path))
         except AttributeError:
-            return HttpResponseRedirect("%s?next=%s" % (self.login_url, request.path))
+            return HttpResponseRedirect("{}?next={}".format(self.login_url, request.path))

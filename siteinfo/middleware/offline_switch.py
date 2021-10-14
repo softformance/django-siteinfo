@@ -23,7 +23,7 @@ class OfflineSwitchMiddleware(MiddlewareMixin):
     """
 
     def __init__(self, *args, **kwargs):
-        super(OfflineSwitchMiddleware, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # same as in RequireLoginMiddleware
         self.login_url = getattr(settings, 'LOGIN_URL', '/accounts/login/')
         public_urls = []

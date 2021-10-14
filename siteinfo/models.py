@@ -1,5 +1,3 @@
-
-
 import datetime
 import warnings
 
@@ -8,7 +6,6 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from filer.fields.file import FilerFileField
 from django.utils.translation import gettext_lazy as _
-from six import python_2_unicode_compatible
 
 
 # Create your models here.
@@ -36,7 +33,6 @@ REQUIRE_LOGIN_CHOICES = (
 )
 
 
-@python_2_unicode_compatible
 class SiteSettings(models.Model):
     site = models.ForeignKey(Site, related_name='site_settings', unique=True, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
@@ -44,17 +40,17 @@ class SiteSettings(models.Model):
     active_end = models.DateTimeField(null=True, blank=True)
 
     description = models.TextField(_('site description'),
-                                   help_text='%s %s' % (
+                                   help_text='{} {}'.format(
                                        _('Keep between 150 and 1000 characters long.'),
                                        _('Important for search engine indexing.'),
                                    ), blank=True)
     keywords = models.TextField(_('site keywords'),
-                                help_text='%s %s' % (
+                                help_text='{} {}'.format(
                                     _('Comma separated.'),
                                     _('Important for search engine indexing.'),
                                 ), blank=True)
     site_topic = models.TextField(_('site topic'),
-                                  help_text='%s %s' % (
+                                  help_text='{} {}'.format(
                                       _('Keep between 150 and 1000 characters long.'),
                                       _('Important for search engine indexing.'),
                                   ), blank=True)
@@ -102,7 +98,7 @@ class SiteSettings(models.Model):
         return _('for site %s') % str(self.site)
 
     def get_full_address(self, separator="<br />"):
-        address = "%s%s%s %s" % (self.address, separator, self.zip_code or "", self.city)
+        address = "{}{}{} {}".format(self.address, separator, self.zip_code or "", self.city)
         return mark_safe(address)
 
     def is_active_now(self):
@@ -122,11 +118,11 @@ class SiteSettings(models.Model):
     @property
     def author(self):
         if self.company and self.last_name and self.first_name:
-            return '%s, %s %s' % (self.company, self.first_name, self.last_name)
+            return '{}, {} {}'.format(self.company, self.first_name, self.last_name)
         elif self.company and self.last_name and not self.first_name:
-            return '%s, %s' % (self.company, self.last_name)
+            return '{}, {}'.format(self.company, self.last_name)
         else:
-            return '%s%s' % (self.last_name and self.last_name + ', ', self.first_name)
+            return '{}{}'.format(self.last_name and self.last_name + ', ', self.first_name)
 
     @property
     def email_local_part(self):
@@ -150,7 +146,6 @@ class SiteSettings(models.Model):
         return getattr(self.gtc_file, 'file', None)
 
 
-@python_2_unicode_compatible
 class SiteAliasSettings(models.Model):
     site = models.ForeignKey(Site, related_name='sitealias_settings', on_delete=models.CASCADE)
     domain_alias = models.CharField(max_length=100, unique=True, help_text=_('Without www.'))

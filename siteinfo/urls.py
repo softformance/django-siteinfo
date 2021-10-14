@@ -10,7 +10,7 @@ from django.views.generic import RedirectView
 site_settings = SiteSettings.objects.get_current()
 
 if site_settings:
-    agb_url = 'http://%s%s%s' % (site_settings.site.domain, settings.MEDIA_URL, site_settings.gtc)
+    agb_url = 'http://{}{}{}'.format(site_settings.site.domain, settings.MEDIA_URL, site_settings.gtc)
 else:
     agb_url = ""
 
